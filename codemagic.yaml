@@ -14,10 +14,9 @@ workflows:
           tar -xzf Katalon_Studio_Linux_64-${KATALON_VERSION}.tar.gz
           rm Katalon_Studio_Linux_64-${KATALON_VERSION}.tar.gz
           
-      - name: Setup Emulator
+      - name: Start Emulator
         script: |
-          echo "no" | avdmanager create avd --force --name testEmulator --abi google_apis/x86 --package 'system-images;android-29;google_apis;x86'
-          emulator @testEmulator -no-window -no-audio -no-boot-anim &
+          emulator @Pixel_2_API_29 &
           adb wait-for-device
           
       - name: Run Katalon Tests
