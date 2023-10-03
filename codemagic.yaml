@@ -14,12 +14,6 @@ workflows:
           tar -xzf Katalon_Studio_Linux_64-${KATALON_VERSION}.tar.gz
           rm Katalon_Studio_Linux_64-${KATALON_VERSION}.tar.gz
           
-      - name: Build APK
-        script: |
-          cd android
-          ./gradlew assembleDebug
-          cd ..
-          
       - name: Setup Emulator
         script: |
           echo "no" | avdmanager create avd --force --name testEmulator --abi google_apis/x86 --package 'system-images;android-29;google_apis;x86'
@@ -35,6 +29,6 @@ workflows:
             -testSuitePath="Test Suites/TS_RegressionTest" \
             -browserType="Android" \
             -deviceId="emulator-5554" \
-            -app="$(pwd)/android/app/build/outputs/apk/debug/app-debug.apk"
+            -app="$(pwd)/General-Store.apk"
     artifacts:
       - reports/**
