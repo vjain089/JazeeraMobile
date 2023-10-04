@@ -16,7 +16,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
-def apkPath = System.getProperty("user.dir") + '/General-Store.apk'
+def apkPath = System.getProperty("user.dir") + '//General-Store.apk'
 println("Ruta del archivo APK: " + apkPath)
 Mobile.startApplication(apkPath, true)
 
