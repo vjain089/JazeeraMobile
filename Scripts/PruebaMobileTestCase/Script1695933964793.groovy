@@ -16,8 +16,9 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
-
-Mobile.startApplication(System.getProperty("user.dir")+'/General-Store.apk', true)
+def apkPath = System.getProperty("user.dir") + '/General-Store.apk'
+println("Ruta del archivo APK: " + apkPath)
+Mobile.startApplication(apkPath, true)
 
 Mobile.setText(findTestObject('Object Repository/PruebaMobileObject/android.widget.EditText - Enter name here'), 'Juan Cruz', 
     0)
