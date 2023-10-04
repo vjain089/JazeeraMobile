@@ -21,6 +21,7 @@ import org.openqa.selenium.Keys
 import org.xbill.DNS.APLRecord as Keys
 
 def appPath = PathUtil.relativeToAbsolutePath("apkTest.apk", RunConfiguration.getProjectDir())
+println("App Path Richard: " + appPath)
 Mobile.startApplication(appPath, true)
 
 Mobile.setText(findTestObject('Object Repository/PruebaMobileObject/android.widget.EditText - Enter name here'), 'Juan Cruz', 
