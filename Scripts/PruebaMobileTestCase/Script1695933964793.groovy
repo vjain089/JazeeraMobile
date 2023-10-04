@@ -18,11 +18,25 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import org.openqa.selenium.Keys
 import org.xbill.DNS.APLRecord as Keys
+import com.kms.katalon.core.appium.driver.AppiumDriverManager
+import io.appium.java_client.android.AndroidDriver
+import org.openqa.selenium.remote.DesiredCapabilities
+import com.kms.katalon.core.mobile.driver.MobileDriverType
 
 
-def appPath = "androidapp/apkTest.apk"
-println("App Path Richard: " + appPath)
-Mobile.startApplication(appPath, true)
+// Set the Browserstack credentials: USERNAME and ACCESS_KEY
+String browserStackServerURL = "https://richardlopez_6dFDlu:G69cRg3VnZy9ucsbGQgw@hub-cloud.browserstack.com/wd/hub";
+
+DesiredCapabilities capabilities = new DesiredCapabilities();
+
+capabilities.setCapability("device", "Samsung Galaxy S8");
+
+//Set the app_url (returned on uploading app on Browserstack) in the 'app' capability
+capabilities.setCapability('app', 'bs://3d4bc8aaa63bf43326bf14b372326e34bdc4f6d7');
+
+AppiumDriverManager.createMobileDriver(MobileDriverType.ANDROID_DRIVER, capabilities, new URL(browserStackServerURL));
+
+
 
 Mobile.setText(findTestObject('Object Repository/PruebaMobileObject/android.widget.EditText - Enter name here'), 'Juan Cruz', 
     0)
