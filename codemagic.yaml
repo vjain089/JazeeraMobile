@@ -1,10 +1,8 @@
 workflows:
-  native-android:
-    name: Integrations Katalon Android
+  katalon-tests:
+    name: Integrations Katalon
     instance_type: mac_pro
     environment:
-      android_signing:
-        - keystore_reference
       groups:
         - katalon_credentials
       node: v16.11.1
@@ -18,30 +16,16 @@ workflows:
           include: true
           source: true
     scripts:
-      - name: Set Android SDK location
-        script: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
-      - name: Build Android debug APK
-        script: |
-          ./gradlew assembleDebug
-      - name: Test
-        script: |
-          ./gradlew test
-        test_report: app/build/test-results/**/*.xml
-      - name: Build Android production release
-        script: |
-          ./gradlew assembleRelease
       - name: Uploading to Katalon
         script: |
           docker run -t --rm \
-            -v $CM_BUILD_DIR/app/build/test-results/testReleaseUnitTest/:/katalon/report \
+            -v $CM_BUILD_DIR/reports/:/katalon/report \
             -e PASSWORD="0a5120e1-528e-4af3-84d4-99aaf18f2904" \
             -e PROJECT_ID="1231097" \
             -e TYPE=junit \
             -e REPORT_PATH=/katalon/report katalonstudio/report-uploader:0.0.8
     artifacts:
-      - app/build/outputs/**/*.apk
-      - app/build/test-results/**/*.xml
+      - reports/**/*.xml
     publishing:
       email:
         recipients:
