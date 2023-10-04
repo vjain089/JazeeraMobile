@@ -19,8 +19,7 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys
 import org.xbill.DNS.APLRecord as Keys
-
-def appPath = PathUtil.relativeToAbsolutePath("apkTest.apk", RunConfiguration.getProjectDir())
+def appPath = PathUtil.relativeToAbsolutePath("apkTest.apk", RunConfiguration.getProjectDir()+"/androidapp")
 println("App Path Richard: " + appPath)
 Mobile.startApplication(appPath, true)
 
