@@ -11,15 +11,14 @@ workflows:
         ORG_ID: 1261789
         TEST_OPS_PROJECT_ID: 1231097
     scripts:
-      # Download and setup Katalon Runtime Engine
+      # Descargar Katalon Runtime Engine
       - |
-        curl -O https://download.katalon.com/x.x.x/Katalon%20Studio.dmg # replace x.x.x with the version number
-        hdiutil mount Katalon%20Studio.dmg
-        cp -R /Volumes/Katalon\ Studio/Katalon\ Studio.app/Contents/MacOS /usr/local/bin/katalonc
-        hdiutil unmount /Volumes/Katalon\ Studio
-      # Execute Katalon tests
+        curl -L -o katalon.zip https://github.com/katalon-studio/katalon-studio/releases/download/v8.6.0/Katalon_Studio_Engine_Linux_64-8.6.0.tar.gz
+        tar -xvf katalon.zip -C /usr/local/bin
+        chmod +x /usr/local/bin/katalonc
+      # Ejecutar pruebas de Katalon
       - |
-        ./katalonc -testSuitePath="Test Suites/Prueba" -executionProfile="default" --config -webui.autoUpdateDrivers=true -orgId="$ORG_ID" -apiKey="$KATALON_API_KEY" -testOpsProjectId="$TEST_OPS_PROJECT_ID" -projectPath="$(pwd)" -reportFolder="$(pwd)/report/$(date +'%Y%m%d_%H%M%S')" -report -browserType="Chrome"
+        katalonc -testSuitePath="Test Suites/Prueba" -executionProfile="default" --config -webui.autoUpdateDrivers=true -orgId="$ORG_ID" -apiKey="$KATALON_API_KEY" -testOpsProjectId="$TEST_OPS_PROJECT_ID" -projectPath="$(pwd)" -reportFolder="$(pwd)/report/$(date +'%Y%m%d_%H%M%S')" -report -browserType="Chrome"
 
     artifacts:
       - report/**/*
