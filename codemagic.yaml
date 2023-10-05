@@ -1,21 +1,14 @@
-version: 1.0
-
 workflows:
   katalon-tests:
-    name: Run Katalon Tests
-    max_build_duration: 60
+    name: Katalon Tests
     environment:
       vars:
-        KATALON_API_KEY: Encrypted(0a5120e1-528e-4af3-84d4-99aaf18f2904)
-        ORG_ID: 1261789
-        TEST_OPS_PROJECT_ID: 1231097
+        KATALON_VERSION: "8.6.0"
     scripts:
-      - |
-        curl -L -o katalon.zip https://github.com/katalon-studio/katalon-studio/releases/download/v8.6.0/Katalon_Studio_Engine_Linux_64-8.6.0.tar.gz
-        tar -xvf katalon.zip -C /usr/local/bin
-        chmod +x /usr/local/bin/katalonc
-      - |
-        katalonc -testSuitePath="Test Suites/Prueba" -executionProfile="default" --config -webui.autoUpdateDrivers=true -orgId="$ORG_ID" -apiKey="$KATALON_API_KEY" -testOpsProjectId="$TEST_OPS_PROJECT_ID" -projectPath="$(pwd)" -reportFolder="$(pwd)/report/$(date +'%Y%m%d_%H%M%S')" -report -browserType="Chrome"
-
-    artifacts:
-      - report/**/*
+      - name: Install Katalon Runtime Engine
+        script: |
+          curl -O https://github.com/katalon-studio/katalon-studio/releases/download/v$KATALON_VERSION/Katalon_Studio_Engine_MacOS_$KATALON_VERSION.zip
+          unzip Katalon_Studio_Engine_MacOS_$KATALON_VERSION.zip -d katalon-studio
+      - name: Execute Katalon Tests
+        script: |
+          ./katalon-studio/katalonc -testSuitePath="Test Suites/Prueba" -executionProfile="default" --config -webui.autoUpdateDrivers=true -orgId="1261789" -apiKey="0a5120e1-528e-4af3-84d4-99aaf18f2904" -testOpsProjectId="1231097" -projectPath="$FCI_PROJECT_DIR" -reportFolder="$FCI_PROJECT_DIR/report/$(date +'%Y%m%d_%H%M%S')" -report -browserType="Chrome"
