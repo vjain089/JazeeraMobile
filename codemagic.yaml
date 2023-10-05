@@ -1,36 +1,25 @@
+version: 1.0
+
 workflows:
   katalon-tests:
-    name: Integrations Katalon
-    instance_type: mac_pro
+    name: Run Katalon Tests
+    max_build_duration: 60
     environment:
-      groups:
-        - katalon_credentials
-      node: v16.11.1
-    triggering:
-      events:
-        - push
-        - tag
-        - pull_request
-      branch_patterns:
-        - pattern: develop
-          include: true
-          source: true
+      vars:
+        # Define your Katalon API Key and other necessary environment variables
+        KATALON_API_KEY: Encrypted(0a5120e1-528e-4af3-84d4-99aaf18f2904)
+        ORG_ID: 1261789
+        TEST_OPS_PROJECT_ID: 1231097
     scripts:
-      - name: Uploading to Katalon
-        script: |
-          docker run -t --rm \
-            -v $CM_BUILD_DIR/reports/:/katalon/report \
-            -e PASSWORD="0a5120e1-528e-4af3-84d4-99aaf18f2904" \
-            -e PROJECT_ID="1231097" \
-            -e TYPE=junit \
-            -e REPORT_PATH=/katalon/report katalonstudio/report-uploader:0.0.8
+      # Download and setup Katalon Runtime Engine
+      - |
+        curl -O https://download.katalon.com/x.x.x/Katalon%20Studio.dmg # replace x.x.x with the version number
+        hdiutil mount Katalon%20Studio.dmg
+        cp -R /Volumes/Katalon\ Studio/Katalon\ Studio.app/Contents/MacOS /usr/local/bin/katalonc
+        hdiutil unmount /Volumes/Katalon\ Studio
+      # Execute Katalon tests
+      - |
+        ./katalonc -testSuitePath="Test Suites/Prueba" -executionProfile="default" --config -webui.autoUpdateDrivers=true -orgId="$ORG_ID" -apiKey="$KATALON_API_KEY" -testOpsProjectId="$TEST_OPS_PROJECT_ID" -projectPath="$(pwd)" -reportFolder="$(pwd)/report/$(date +'%Y%m%d_%H%M%S')" -report -browserType="Chrome"
+
     artifacts:
-      - reports/**/*.xml
-    publishing:
-      email:
-        recipients:
-          - user1@example.com
-          - user2@example.com
-        notify:
-          success: true
-          failure: false
+      - report/**/*
