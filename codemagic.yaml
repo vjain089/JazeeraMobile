@@ -6,17 +6,14 @@ workflows:
     max_build_duration: 60
     environment:
       vars:
-        # Define your Katalon API Key and other necessary environment variables
         KATALON_API_KEY: Encrypted(0a5120e1-528e-4af3-84d4-99aaf18f2904)
         ORG_ID: 1261789
         TEST_OPS_PROJECT_ID: 1231097
     scripts:
-      # Descargar Katalon Runtime Engine
       - |
         curl -L -o katalon.zip https://github.com/katalon-studio/katalon-studio/releases/download/v8.6.0/Katalon_Studio_Engine_Linux_64-8.6.0.tar.gz
         tar -xvf katalon.zip -C /usr/local/bin
         chmod +x /usr/local/bin/katalonc
-      # Ejecutar pruebas de Katalon
       - |
         katalonc -testSuitePath="Test Suites/Prueba" -executionProfile="default" --config -webui.autoUpdateDrivers=true -orgId="$ORG_ID" -apiKey="$KATALON_API_KEY" -testOpsProjectId="$TEST_OPS_PROJECT_ID" -projectPath="$(pwd)" -reportFolder="$(pwd)/report/$(date +'%Y%m%d_%H%M%S')" -report -browserType="Chrome"
 
