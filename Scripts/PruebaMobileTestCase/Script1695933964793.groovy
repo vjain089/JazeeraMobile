@@ -23,7 +23,7 @@ import io.appium.java_client.android.AndroidDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 import com.kms.katalon.core.mobile.driver.MobileDriverType
 
-
+/*
 // Set the Browserstack credentials: USERNAME and ACCESS_KEY
 String browserStackServerURL = "https://richardlopez_6dFDlu:G69cRg3VnZy9ucsbGQgw@hub-cloud.browserstack.com/wd/hub";
 
@@ -35,7 +35,9 @@ capabilities.setCapability("device", "Samsung Galaxy S8");
 capabilities.setCapability('app', 'bs://3d4bc8aaa63bf43326bf14b372326e34bdc4f6d7');
 
 AppiumDriverManager.createMobileDriver(MobileDriverType.ANDROID_DRIVER, capabilities, new URL(browserStackServerURL));
+*/
 
+Mobile.startApplication("/Users/vaibhavjain/git/DemoAndroid/androidapp/apkTest.apk", true)
 
 
 Mobile.setText(findTestObject('Object Repository/PruebaMobileObject/android.widget.EditText - Enter name here'), 'Juan Cruz', 
