@@ -2,7 +2,7 @@ import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
 
-Mobile.startApplication('/Users/vaibhavjain/Downloads/MR26_Android_Test_Final_Build.apk', true)
+Mobile.startApplication('/Users/vaibhavjain/git/DemoAndroid/androidapp/MR26_Android_Test_Final_Build.apk', true)
 
 Mobile.delay(30)
 
