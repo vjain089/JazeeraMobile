@@ -24,7 +24,7 @@ Mobile.tap(findTestObject('Object Repository/Jazeera_Booking/android.widget.Edit
 
 Mobile.tap(findTestObject('Object Repository/Jazeera_Booking/android.widget.TextView - November, 2023'), 0)
 
-Mobile.tap(findTestObject('Jazeera_Booking/android.widget.TextView - 2', [('day') : '8']), 0)
+Mobile.tap(findTestObject('Jazeera_Booking/android.widget.TextView - 2', [('day') : '18']), 0)
 
 Mobile.tap(findTestObject('Object Repository/Jazeera_Booking/android.widget.Button - Show Flights'), 0)
 
@@ -82,16 +82,17 @@ Mobile.setText(findTestObject('Jazeera_Booking/android.widget.EditText - Date of
 
 Mobile.tap(findTestObject('Jazeera_Booking/android.widget.TextView - Travel Extras'), 0)
 
-Mobile.tap(findTestObject('Object Repository/Jazeera_Booking/android.widget.RelativeLayout'), 0)
+Mobile.tap(findTestObject('Jazeera_Booking/android.widget.TextView - Seat Selection'), 0)
 
 Mobile.delay(20, FailureHandling.STOP_ON_FAILURE)
 
-Mobile.tap(findTestObject('Jazeera_Booking/android.widget.LinearLayout -Seat', [('seat') : '3']), 0)
+Mobile.tap(findTestObject('Jazeera_Booking/android.widget.LinearLayout -Seat', [('seat') : '5']), 0)
 
 Mobile.tap(findTestObject('Object Repository/Jazeera_Booking/android.widget.TextView - Proceed'), 0)
 
-Mobile.tap(findTestObject('Jazeera_Booking/android.widget.CheckBox'), 0)
+not_run: Mobile.tap(findTestObject('Jazeera_Booking/android.widget.CheckBox'), 0)
 
 Mobile.tap(findTestObject('Jazeera_Booking/android.widget.TextView - Flight Summary'), 0)
 
-Mobile.closeApplication()
+not_run: Mobile.closeApplication()
+
